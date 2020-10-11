@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_fifo_extension_account_fifo_extension,account_fifo_extension.account_fifo_extension,model_account_fifo_extension_account_fifo_extension,base.group_user,1,1,1,1
