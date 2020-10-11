@@ -40,7 +40,8 @@ class ProductProduct(models.Model):
             ('remaining_qty', '>', 0),
             ('company_id', '=', company.id),
         ])
-        candidates = candidates.filtered(lambda c: lot_id in c.move_lines.mapped('lot_id'))
+        if lot_id:
+            candidates = candidates.filtered(lambda c: lot_id in c.move_lines.mapped('lot_id'))
         new_standard_price = 0
         tmp_value = 0  # to accumulate the value taken on the candidates
         for candidate in candidates:
