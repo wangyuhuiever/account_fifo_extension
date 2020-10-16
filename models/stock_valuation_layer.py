@@ -8,10 +8,12 @@ class StockValuationLayer(models.Model):
 
     move_lines = fields.One2many(related='stock_move_id.move_line_ids')
 
-    @api.constrains('move_lines')
-    def constraint_lot_cost(self):
-        for rec in self:
-            if rec.quantity > 0 and rec.move_lines:
-                for ml in rec.move_lines:
-                    ml.lot_id.cost = rec.unit_cost
+    def create(self, vals_list):
+        res = super(StockValuationLayer, self).create(vals_list)
+        for vals in vals_list:
+            if 'stock_move_id' in vals and vals['quantity'] > 0:
+                move = self.env['stock.move'].browse(vals['stock_move_id'])
+                for ml in move.mapped('move_line_ids'):
+                    ml.lot_id.cost = vals['unit_cost']
+        return res
 
