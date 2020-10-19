@@ -6,8 +6,6 @@ from odoo import models, fields, api
 class StockValuationLayer(models.Model):
     _inherit = "stock.valuation.layer"
 
-    move_lines = fields.One2many(related='stock_move_id.move_line_ids')
-
     def create(self, vals_list):
         res = super(StockValuationLayer, self).create(vals_list)
         for vals in vals_list:
